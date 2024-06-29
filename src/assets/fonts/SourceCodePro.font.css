@@ -1,0 +1,17 @@
+/* Source Code Pro Variable Font */
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("./Source Code Pro/SourceCodePro-VariableFont_wght.ttf")
+    format("truetype");
+  font-style: normal;
+  /* Add more font-variation-settings if needed */
+}
+
+/* Source Code Pro Variable Font Italic */
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("./Source Code Pro/SourceCodePro-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-style: italic;
+  /* Add more font-variation-settings if needed */
+}

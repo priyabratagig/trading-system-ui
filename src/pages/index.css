@@ -1,0 +1,22 @@
+#root .full-page {
+  height: 100vh;
+  width: 100vw;
+  overflow: overlay;
+}
+
+#root .dashboard-page {
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  min-height: 100vh;
+  min-width: 100vw;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  #root .dashboard-page {
+    padding: 2.5rem 1.5rem;
+    row-gap: 1rem;
+  }
+}

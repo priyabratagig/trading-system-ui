@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+:root {
+  font-family: Source Code Pro;
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+* {
+  scrollbar-width: thin;
+}
