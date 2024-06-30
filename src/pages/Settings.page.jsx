@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AutoTradeStopConfirmModal, SystemStopConfirmModal, TokenModalupdate, TokenStopConfirmModal } from '../Components'
 import { Link } from 'react-router-dom'
 import { auto_trade_on, get_auto_trade_status, get_log_files, get_system_status, get_token_status, logout, system_start, token_auth_code, token_refresh } from '../api'
@@ -10,6 +10,12 @@ export const Settings = () => {
     const [auto_trade_status, setAutoTradeStatus] = useState('OFF')
     const [auth_code, setAuthCode] = useState('#')
     const [log_files, setLogFiles] = useState([])
+
+    const fetchAuthCode = useCallback(async () => {
+        const code = await token_auth_code()
+        if (code.error) return console.error(code.error)
+        setAuthCode(code['auth_link'])
+    }, [])
 
     useEffect(() => {
         const fetchSystemStatus = async () => {
@@ -27,11 +33,11 @@ export const Settings = () => {
             if (auto_trade.error) return console.error(auto_trade.error)
             setAutoTradeStatus(auto_trade.status ? 'ON' : 'OFF')
         }
-        const fetchAuthCode = async () => {
-            const code = await token_auth_code()
-            if (code.error) return console.error(code.error)
-            setAuthCode(code['auth_link'])
-        }
+        // const fetchAuthCode = async () => {
+        //     const code = await token_auth_code()
+        //     if (code.error) return console.error(code.error)
+        //     setAuthCode(code['auth_link'])
+        // }
         const fetchLogFiles = async () => {
             const logs = await get_log_files()
             if (logs.error) return console.error(logs.error)
@@ -47,7 +53,7 @@ export const Settings = () => {
         }, 500)
 
         return () => clearTimeout(timeout)
-    }, [])
+    }, [fetchAuthCode])
 
     const token_modal = useRef(null)
     const token_stop_modal = useRef(null)
@@ -62,7 +68,10 @@ export const Settings = () => {
     }
 
     const fyersLogin = () => {
-        token_modal.current.open(() => setTokenStatus('ON'))
+        token_modal.current.open(() => {
+            setTokenStatus('ON')
+            fetchAuthCode()
+        })
     }
 
     const auto_trade_start_stop = async () => {
